@@ -1,0 +1,14 @@
+ <script>
+        jQuery(document).ready(function(){ jQuery( ".wrap" ).before(
+            '<div class="connatix_menu" style="float:right;padding-right:20px;padding-top:20px;">\n\
+            <select id="connatix_menu" style="width: 180px;">\n\
+                <option value="infeedserver">InPost</option>\n\
+                <option selected="selected" value="jsclient">InFeed</option>\n\
+            </select>\n\
+            </div>' ); });    
+
+         jQuery(document).ready(function(){ jQuery("#connatix_menu").on('change', function () {
+         window.location.href = '<?php echo get_site_url(); ?>/wp-admin/options-general.php?page=connatix/connatix.php&plugin=' + jQuery(this).val();
+});
+});
+</script>
