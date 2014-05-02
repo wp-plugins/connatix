@@ -4,7 +4,7 @@
  * Plugin Name: Connatix
  * Plugin URI: http://connatix.com/
  * Description: This plugin will offer you an easy way to set up your CONNATIX ads. Use Settings to set up your options.
- * Version: 2.4
+ * Version: 2.4.1
  * Author: Connatix
  * Author URI: http://connatix.com
  * License: GPL2
