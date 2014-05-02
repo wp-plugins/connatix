@@ -1,6 +1,6 @@
 var connatix = {};
-connatix.jQuery = jQuery.noConflict(true);
-
+connatix.jQuery = jQuery.noConflict();
+connatix.jQuery(function(){
 connatix.jQuery(document).ready(function(){
     
     //bind the change of the input on the page
@@ -26,6 +26,7 @@ connatix.jQuery(document).ready(function(){
         var url = connatix.jQuery(this).find("option:selected").attr("data-link");
         connatix.jQuery(".category-page-link").attr("href", url);
     });
+});
 });
 
 
