@@ -1,0 +1,14 @@
+<?php
+class menu {
+    public function __construct() {
+        $valid = isset($_GET["page"]) && ($_GET['page'] == "connatix/connatix" || $_GET['page']== "connatix/connatix.php");
+        if ( $valid )
+           echo "<script src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>";
+    }
+        
+    public function connatix_selected_option($option){
+        $valid = isset($_GET["page"]) && ($_GET['page']== "connatix/connatix" || $_GET['page']== "connatix/connatix.php");
+        if(!$valid)
+            return;
+    }
+}
