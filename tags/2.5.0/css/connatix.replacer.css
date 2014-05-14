@@ -121,7 +121,6 @@ td.connatix_head {
 #connatix_ad_management.form-table th{
     text-align: center !important;
 }
-
 .connatix-preloader
 {
     width:100%;
@@ -141,40 +140,4 @@ td.connatix_head {
     margin:80px auto;
     display:block;
 }
-.connatix-menu 
-{
-    margin-bottom:20px;
-    clear:both;
-    height:84px;
-}
-
-.connatix-menu a
-{
-    display:block;
-    padding:30px;
-    width:100px;
-    color:white;
-    float:left;
-    background-color:#27a9e3;
-    font-size: 32px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border:2px solid white;
-    margin-right:50px;
-    cursor:pointer;
-}
-
-.connatix-menu a.active
-{
-    background: #28b779;
-}
-
-.connatix-menu a:hover
-{
-    background: #28b779;
-}
-
-.connatix-clear
-{
-    clear:both;
-}
+        
