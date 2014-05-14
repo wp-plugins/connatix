@@ -1,6 +1,5 @@
 <?php
 
-define("CONNATIX_RANDOM", "100Release");
 define("CONNATIX_JS_QA", false);
 define("CONNATIX_JS_VERSION", "1.0.0");
 
@@ -8,20 +7,16 @@ require_once(plugin_dir_path( __FILE__ ) . "connatix.php");
 
 class ConnatixJSPlugin extends ConnatixPlugin {
     
-    public static $OPTIONS_KEY = "connatix_js_options";
+    public static $OPTIONS_KEY = "connatix_js_options100Release";
     public static $POST_ACTION = "connatix_js_handle_post";
-    public static $PAGE_NAME = "connatix";
+    public static $PAGE_NAME = "connatix100Release";
     
     
     public function __construct() {
         parent::__construct();
         
-        ConnatixJSPlugin::$OPTIONS_KEY .= CONNATIX_RANDOM;
-        ConnatixJSPlugin::$PAGE_NAME .= CONNATIX_RANDOM;
-        
         // Creates the AD page
         add_action(ConnatixJSPlugin::$POST_ACTION, array($this, 'connatix_create_ad_page'));
-        add_action('wp_head', array($this,'connatix_head'));
         
         add_action('wp_enqueue_scripts', array($this,'connatix_adding_scripts') ); 
         
@@ -38,16 +33,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
        
     }
     
-    public function connatix_head()
-    {
-       $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
-       if($options != null)
-       {
-           $valid_page = ($options->_categoryID == 0) ? is_home() : is_category($options->_categoryID);
-           if($valid_page)
-               echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
-       }
-    }
+   
     
     public function register_plugin_static() {
         wp_register_style('connatix-css', plugin_dir_url(  __FILE__ ) . '../css/connatix.js.css' );
@@ -123,7 +109,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
             $_p['comment_status'] = 'closed';
             $_p['ping_status'] = 'closed';
             $_p['post_category'] = array(1);
-       
+            
             wp_insert_post($_p);
             
             $page = get_page_by_title($page_title);
@@ -148,9 +134,9 @@ class ConnatixJSPlugin extends ConnatixPlugin {
     {
         $valid = true;
         
-        $valid = $valid && (isset($params["token"]) && strlen($params["token"]) > 10);
-        $valid = $valid && (isset($params["pos"]) && is_numeric($params["pos"]));
         $valid = $valid && (isset($params["dest"]) && strlen($params["dest"]) > 0);
+        if(isset($params["pos"]))
+            $valid = $valid && (isset($params["pos"]) && is_numeric($params["pos"]));
         
         if($valid == false)
             $this->connatix_show_message("The data you submitted is invalid", "error");
@@ -161,27 +147,23 @@ class ConnatixJSPlugin extends ConnatixPlugin {
     private function get_options($params)
     {
         $options = new ConnatixJSOPtions();
-        $options->_token = $params["token"];
-        $options->_pos = $params["pos"];
-        $options->_dest = $params["dest"];
-        $options->_dom_path = $params["dom_path"];
-        $options->_categoryID = $params["categoryID"];
         
+        $options->_token = $params["token"];
+        if(isset($params["pos"]))
+            $options->_pos = $params["pos"];
+        if(isset($params["dest"]))
+            $options->_dest = $params["dest"];
+        if(isset($params["dom_path"]))
+            $options->_dom_path = $params["dom_path"];
+        if(isset($params["categoryID"]))
+            $options->_categoryID = $params["categoryID"];
+        if(isset($params["skip_adunit"]))
+            $options->_skip_adunit = isset($params["skip_adunit"]) && $params["skip_adunit"] == 1 ? 1 : 0; 
+       
         return $options;
     }    
     
     
-    public function connatix_exclude_pages_from_admin($query) {
-        global $pagenow, $post_type;
-
-        $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
-        
-        if (is_admin() && $pagenow == 'edit.php' && is_array($query->query_vars['post__not_in'])) {
-            array_push ($query->query_vars['post__not_in'], $options->_id);
-        }
-        
-        return $query;
-    }
     
     function connatix_adding_scripts() {
     }   
@@ -196,4 +178,5 @@ class ConnatixJSOPtions
     public $_path = "/";
     public $_dom_path;
     public $_categoryID = 0; //0 means homepage for now
+    public $_skip_adunit = 0;
 }

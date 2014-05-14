@@ -41,4 +41,4 @@ v2.4
     - Performance improvements;
     - Optimizations;
 v2.4.1
-	- widget compatibility fix
+	- small fix for that was affecting widgets page

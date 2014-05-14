@@ -18,9 +18,60 @@ abstract class ConnatixPlugin
         add_action('init', array($this,'connatix_permalink'));
         
         add_filter('parse_query', array($this, 'connatix_exclude_pages_from_admin'));
-        
         add_filter('plugin_action_links', array($this, 'connatix_plugin_action_links'), 10, 2);
+        add_action('widgets_init',
+            create_function('', 'return register_widget("Connatix_Widget_Infeed");')
+        );
+        
+        add_filter( 'the_content', array($this,'filter_connatix_content_alter' ));
+        add_action('wp_head', array($this,'connatix_head'));
    }
+   
+    public function filter_connatix_content_alter($content)
+    {
+        if(!is_single())
+            return $content;
+        
+       //check if there is any inpost add installed
+       $options = get_option(ConnatixInpostPlugin::$OPTIONS_KEY);
+       
+       if($options != null && isset($options->_token) && strlen($options->_token) > 10 && ($options->_type == 1 || $options->_type == 2))
+       {
+           $script = "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.renderer.inpost.connatix.min.js' data-connatix-token='".$options->_token."'></script>";
+           switch($options->_type)
+           {
+               case 1:
+                   return  $content = $script . $content;
+               case 2: 
+                   return  $content = $content . $script;
+                   break;
+           }
+       }
+       
+       return $content;
+    }
+    
+    public function connatix_head()
+    {
+       $valid_page = is_single();
+       //insert in the head only if the type is custom location
+       if($valid_page)
+       {
+            $options = get_option(ConnatixInpostPlugin::$OPTIONS_KEY);
+            if($options->_type == 0 && $options->_token != null && strlen($options->_token) > 0)
+                echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.inpost.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+       }
+       
+       
+       $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
+       if($options != null && $options->_skip_adunit == 0 && $options->_token != null && strlen($options->_token) > 0)
+       {
+           $valid_page = ($options->_categoryID == 0) ? is_home() : is_category($options->_categoryID);
+           if($valid_page)
+               echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+       }
+            
+    }
    
    public function connatix_plugin_loaded()
    {
@@ -95,57 +146,33 @@ abstract class ConnatixPlugin
    
        register_setting('connatix_plugin_options', 'connatix_options');
    }
+    
    public function connatix_exclude_pages_from_admin($query) {
         global $pagenow, $post_type;
-
-        $options = get_option(ConnatixReplacerPlugin::$OPTIONS_KEY);
         
-        if (!is_admin()) {
-            return $query;
-        }
+        $ids = $this->get_product_ids();
         
         if (is_admin() && $pagenow == 'edit.php' && is_array($query->query_vars['post__not_in'])) {
-              //  array_push ($query->query_vars['post__not_in'], $options->_id);
+            
+            foreach($ids as $id)
+            {
+                array_push ($query->query_vars['post__not_in'], $id);
+            }
         }
+        
+        return $query;
     }
-   
-   /*
-    * STATIC METHODS
-    */
-    /*
-   
-   public static function connatix_add_defaults() {
-        $options = get_option('connatix_options');
-        if (!is_array($options)) {
-            delete_option('connatix_options');
-            $arr = array();
-            $arr[1]["token"] = "";
-            $arr[1]["pos"] = 1;
-            $arr[1]["page_id"] = "";
-            $arr[1]["dest"] = "promoted";
-            $arr[1]["javascript"] = "";
-            $arr[1]["id"] = "1";
-            $arr[1]["path"] = "/";
-
-            update_option('connatix_options', $arr);
-        }
-    }
-   public static function connatix_delete_plugin_options() {
-        $options = get_option('connatix_options');
-        foreach ($options as $row) {
-            wp_delete_post($row["page_id"], true);
-        }
-        delete_option('connatix_options');
-    }
-
-   public static function connatix_deactivate_plugin() {
-        $options = get_option('connatix_options');
-        foreach ($options as $row) {
-            wp_delete_post($row["page_id"], true);
-        }
-   }
-     
-     */
     
-    
+    public function get_product_ids()
+    {
+        $ids = array();
+        
+        $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
+        array_push($ids, $options->_id);
+        
+        $options = get_option(ConnatixInpostPlugin::$OPTIONS_KEY);
+        array_push($ids, $options->_id);
+        
+        return $ids;
+    }
 }

@@ -4,7 +4,7 @@
  * Plugin Name: Connatix
  * Plugin URI: http://connatix.com/
  * Description: This plugin will offer you an easy way to set up your CONNATIX ads. Use Settings to set up your options.
- * Version: 2.4.1
+ * Version: 2.5
  * Author: Connatix
  * Author URI: http://connatix.com
  * License: GPL2
@@ -28,36 +28,26 @@
  */
 
 
+global $connatix_product;
 
 require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 require_once(ABSPATH . WPINC . '/pluggable.php');
 
+require_once(plugin_dir_path( __FILE__ ) . "config.php");
+require_once(plugin_dir_path( __FILE__ ) . "widgets/connatix.widget.infeed.php");
+require_once(plugin_dir_path( __FILE__ ) . "lib/connatix.js.php");
+require_once(plugin_dir_path( __FILE__ ) . "lib/connatix.inpost.php");
 
-//require_once(plugin_dir_path( __FILE__ ) . "lib/menu.php.phtml");
+$connatix_product = isset($_GET["connatix_product"]) && ($_GET["connatix_product"] == "infeed" || $_GET["connatix_product"] == "inpost") ? $_GET["connatix_product"] : "infeed";
 
-    
-//$connatix_menu = null;
-//$connatix_menu = new menu();
-
-if(!isset($_GET['plugin']))
-    $_GET['plugin'] = null;
-
-switch($_GET['plugin'])
-{ 
+switch($connatix_product)
+{
     case "infeed":
-        require_once(plugin_dir_path( __FILE__ ) . "config.php");
-        require_once(plugin_dir_path( __FILE__ ) . "lib/connatix.js.php");
         $cntx = new ConnatixJSPlugin();
-        //$connatix_menu->connatix_selected_option(2);
     break;
-    default :
-        require_once(plugin_dir_path( __FILE__ ) . "config.php");
-        require_once(plugin_dir_path( __FILE__ ) . "lib/connatix.js.php");
+    case "inpost":
+        $cntx = new ConnatixInpostPlugin();
+    break;
+    default:
         $cntx = new ConnatixJSPlugin();
-        //$connatix_menu->connatix_selected_option(2);
-    
-
 }
-
-
-//ConnatixPlugin::connatix_delete_plugin_options();

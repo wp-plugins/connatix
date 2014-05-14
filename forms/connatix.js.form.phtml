@@ -1,35 +1,13 @@
 <!--The page-->
 <div class="wrap">
-    <style>
-        .connatix-preloader
-        {
-            width:100%;
-            height:100%;
-            background:#000000;
-            position: absolute;
-            top:0px;
-            left:0px;
-            z-index:100;
-            opacity:0.2;
-            filter:alpha(opacity=20);
-            display:none;
-        }
-        
-        .connatix-preloader img
-        {
-            margin:80px auto;
-            display:block;
-        }
-        
-    </style>
     <div class='connatix-preloader'>
           <img src="<?php echo CONNATIX_PLUGIN_URL . "img/loader.gif"; ?>"/> 
     </div>
-    <h2 class="title">
-        <img src="<?php echo CONNATIX_PLUGIN_URL . "img/logo_v2.png"; ?>" width="30" height="30" alt="logo_v2"/> 
-        Connatix Product Bundle - <b>InFeed</b> Integration
-    </h2>
-
+    
+    <?php
+        require_once plugin_dir_path(__FILE__) . "connatix.menu.phtml"; 
+    ?>
+    
     <!-- Beginning of the Plugin Options Form 1 -->
     <form method="post" action="options-general.php?page=<?php echo ConnatixPlugin::$PLUGIN_FILE ?>" id="form1">
         <input type='hidden' name='action' value='<?php echo ConnatixJSPlugin::$POST_ACTION ?>'/>
@@ -50,7 +28,7 @@
                     </table></div></div>
 
             <!--Listing ad unit section with it's fields and notes-->
-            <div id="heads-up" class="postbox ">
+            <div id="heads-up" class="postbox ad-unit">
                 <h3><span>AD UNIT</span></h3>
                 <div class="inside">
 
@@ -98,6 +76,12 @@
                             <td colspan="3"> <span class="description">* Insert the listing position for the ad.</span></td>
                         </tr>
                         
+                        <tr>
+                            <?php
+                            $selected = ($options->_skip_adunit) ? "checked='checked'" : "";
+                            ?>
+                            <td colspan="3"> <span class="description"><input data-ignore='true' type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?>/> <b>Do not install the ad unit (Widgets or manual install will be needed)</b></span></td>
+                        </tr>
                          
                        
                        </table></div></div>
