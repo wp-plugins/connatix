@@ -5,7 +5,7 @@ Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
 Requires at least: 3.8.1
 Tested up to: 3.9.0
-Stable tag: 2.5
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,3 +46,6 @@ v2.5
     - in feed widget 
     - in post integration 
     - in feed improvements
+
+v2.5.1
+    - the widget is not showing on infeed promoted pages
