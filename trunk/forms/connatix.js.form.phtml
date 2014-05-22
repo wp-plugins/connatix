@@ -42,6 +42,10 @@
                                         $cat_url = get_home_url();
                                         echo "<option value='0' data-link='$cat_url'>Homepage</option>";
                                         
+                                        $sel = ($options->_categoryID == -1) ? "selected='selected'" : "";
+                                        
+                                        echo "<option value='-1' data-link='javascript:void(0)' $sel>All Post Pages</option>";
+                                        
                                         foreach($categories as $category)
                                         {
                                             $category_url = get_category_link($category->cat_ID);

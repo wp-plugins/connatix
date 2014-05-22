@@ -66,7 +66,15 @@ abstract class ConnatixPlugin
        $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
        if($options != null && $options->_skip_adunit == 0 && $options->_token != null && strlen($options->_token) > 0)
        {
-           $valid_page = ($options->_categoryID == 0) ? is_home() : is_category($options->_categoryID);
+           $valid_page = false;
+           
+           if($options->_categoryID == 0 && is_home())
+               $valid_page = true;
+           if($options->_categoryID == -1 && is_single())
+               $valid_page = true;
+           if(is_category($options->_categoryID))
+               $valid_page = true;
+           
            if($valid_page)
                echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
        }
