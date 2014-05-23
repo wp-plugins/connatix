@@ -88,7 +88,7 @@ class ConnatixInpostPlugin extends ConnatixPlugin {
         $options = $this->get_options($_POST);
         
         $page_title = "<!--".ConnatixInpostPlugin::$PAGE_NAME."-->";
-        $body =  "<script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.min.js'></script>";
+        $body =  "<script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.destination.min.js'></script>";
         
         $page = get_page_by_title($page_title);
         
