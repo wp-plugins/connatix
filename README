@@ -3,9 +3,9 @@
 Contributors: -
 Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
-Requires at least: 3.0.1
-Tested up to: 3.8.1
-Stable tag: 2.1
+Requires at least: 3.8.1
+Tested up to: 3.9.0
+Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,16 +36,21 @@ This plugin embeds your connatix ad for you. Simple managing with graphic interf
 
 == Changelog ==
 
-v2.0
-    - Removed view page link;
-    - Permalink structure "%postname%" mandatory;
-    - Page hidden from admin panel;
-    - Default value for destination page;
-    - GUI changed;
-    - Advanced setup added-NOT inplemented;
-    - Fast mode for the Ad script;
 
-v2.1
-    - Advanced mode implemented;
-    - Implemented advanced Ad management;
-    - Textarea for custom Javascript added.
+v2.4
+    - Performance improvements;
+    - Optimizations;
+v2.4.1
+	- small fix for that was affecting widgets page
+v2.5
+    - in feed widget 
+    - in post integration 
+    - in feed improvements
+
+v2.5.1
+    - the widget is not showing on infeed promoted pages
+v2.5.2
+	- widget setup is including right now its own token. As a fallback the infeed token is used. 
+	- in feed integration on all the post pages
+v2.5.3
+    - integration of the new destination page. NOTE: in order to apply it a save changes is required to regenerate the destination pages
