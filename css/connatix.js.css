@@ -155,7 +155,7 @@ td.connatix_head {
     width:100px;
     color:white;
     float:left;
-    background-color:#27a9e3;
+    background-color:#666666;
     font-size: 32px;
     text-transform: uppercase;
     text-decoration: none;
@@ -178,3 +178,90 @@ td.connatix_head {
 {
     clear:both;
 }
+
+.connatix-toolbox
+{
+    width:200px;
+    position:relative;
+    z-index:100;
+    background:#ffffff;
+    border:1px solid #eee;
+    min-height:500px;
+    float:right;
+    margin-top:13px;
+}
+.connatix-wrap
+{
+    min-width:1024px;
+}
+
+.connatix-wrap #postlist
+{
+    float:left;
+    width: 80%;
+}
+.connatix-page-selector{
+    width:200px;
+}
+
+.connatix-toolbox h3
+{
+    background:#28b779;
+    cursor:pointer;
+    color:white;
+    margin:0px;
+    line-height:40px;
+    text-align:center;
+}
+.connatix-toolbox ul
+{
+    margin:0px;
+}
+.connatix-toolbox li
+{
+    line-height:40px;
+    border-bottom:1px dotted #f1f1f1;
+    padding-left:5px
+}
+.connatix-toolbox li.selected
+{
+    font-weight:bold;
+    background:#f4f4f4;
+}
+
+.connatix-toolbox li:hover
+{
+    background:#f9f9f9;
+    cursor:pointer;
+}
+
+.connatix-toolbox-add
+{
+    background:#28b779;
+    cursor:pointer;
+    color:white;
+    margin:0px;
+    line-height:40px;
+    text-align:center;
+}
+.postlist
+{
+    position:relative;
+}
+.connatix-add-new{
+    color:#ffffff;
+    text-decoration: none;
+}
+.connatix-add-new:hover
+{
+    color:#ffffff;
+}
+.connatix-ad-delete {
+    margin-right:20px !important;
+    background:#666666 !important;
+    border-color:#666666 !important;
+}
+
+
+
+

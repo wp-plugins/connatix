@@ -30,6 +30,13 @@ var connatix = {
         connatix.jQuery(".ad-unit").find("select[data-ignore=true]").change(function(){
             connatix.refreshAdUnit();
         });
+        
+        connatix.jQuery(".connatix-ad-delete").click(function(){
+           if(confirm("Do you really want to delete this ad unit ?"))
+               return true;
+           return false;
+            
+        });
     },
     refreshAdUnit: function()
     {

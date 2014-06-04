@@ -17,7 +17,9 @@ abstract class ConnatixPlugin
         
         add_action('init', array($this,'connatix_permalink'));
         
-        add_filter('parse_query', array($this, 'connatix_exclude_pages_from_admin'));
+        add_filter('posts_where', array($this, 'connatix_exclude_pages_from_admin'));
+        add_filter('get_pages', array($this, 'connatix_exclude_pages'));
+        
         add_filter('plugin_action_links', array($this, 'connatix_plugin_action_links'), 10, 2);
         add_action('widgets_init',
             create_function('', 'return register_widget("Connatix_Widget_Infeed");')
@@ -62,29 +64,57 @@ abstract class ConnatixPlugin
                 echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.inpost.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
        }
        
+       $ad_units = $this->retrieve_ad_units();
        
-       $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
-       if($options != null && $options->_skip_adunit == 0 && $options->_token != null && strlen($options->_token) > 0)
+       foreach($ad_units as $options)
        {
-           $valid_page = false;
-           
-           if($options->_categoryID == 0 && is_home())
-               $valid_page = true;
-           if($options->_categoryID == -1 && is_single())
-               $valid_page = true;
-           if(is_category($options->_categoryID))
-               $valid_page = true;
-           
-           if($valid_page)
-               echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+            if($options != null && $options->_skip_adunit == 0 && $options->_token != null && strlen($options->_token) > 0)
+            {
+                $valid_page = false;
+
+                if(!is_array($options->_categoryID ))
+                    $options->_categoryID = array($options->_categoryID);
+
+                foreach($options->_categoryID as $pageID)
+                {
+                     if($pageID == 0 && is_home())
+                         $valid_page = true;
+                     if($pageID == -1 && is_single())
+                         $valid_page = true;
+                     if(is_category($pageID))
+                         $valid_page = true;
+
+                     if($valid_page)
+                         echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+                }
+             }
        }
-            
     }
    
    public function connatix_plugin_loaded()
    {
        
    }
+   
+    public function retrieve_ad_units()
+    {
+        //set the fields that will be vizible in the phtml file 
+        $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
+        
+        if($options == null)
+            return array();
+        
+        if(!is_array($options))
+            $options = array($options);
+        
+        foreach($options as &$opt)
+        {
+            if(!is_array($opt->_categoryID))
+                $opt->_categoryID = array($opt->_categoryID);
+        }
+        
+        return $options;
+    }
    
    public function connatix_permalink()
    {
@@ -158,13 +188,24 @@ abstract class ConnatixPlugin
    public function connatix_exclude_pages_from_admin($query) {
         global $pagenow, $post_type;
         
-        $ids = $this->get_product_ids();
+        if(strpos($query, "wp_posts.post_type = 'page'") !== false)
+            $query .= " AND wp_posts.post_title NOT LIKE '%<!--connatix%'";
+       
+        //echo "<pre>".print_r($query,true)."</pre>";die();
+        return $query;
+    }
+    
+    public function connatix_exclude_pages($query) {
+        global $pagenow, $post_type;
         
-        if (is_admin() && $pagenow == 'edit.php' && is_array($query->query_vars['post__not_in'])) {
-            
-            foreach($ids as $id)
+        if(is_array($query))
+        {
+            foreach($query as $key => $page)
             {
-                array_push ($query->query_vars['post__not_in'], $id);
+                if(is_object($page) && strpos($page->post_title, "<!--connatix") !== false)
+                {
+                    unset($query[$key]);
+                }
             }
         }
         
