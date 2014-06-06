@@ -11,6 +11,9 @@ class Connatix_Widget_Infeed extends WP_Widget {
 
 	public function widget( $args, $instance ) {
         global $wp_query; 
+        if(!is_object($wp_query) || !isset($wp_query->post) || !is_object($wp_query->post))
+            return;
+        
         $post_id = $wp_query->post->ID;
         
         //$title = apply_filters( 'widget_title', $instance['title'] );

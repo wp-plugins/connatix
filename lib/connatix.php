@@ -187,10 +187,11 @@ abstract class ConnatixPlugin
     
    public function connatix_exclude_pages_from_admin($query) {
         global $pagenow, $post_type;
-        
-        if(strpos($query, "wp_posts.post_type = 'page'") !== false)
-            $query .= " AND wp_posts.post_title NOT LIKE '%<!--connatix%'";
        
+        
+        if($pagenow == "edit.php" && strpos($query, "wp_posts.post_type = 'page'") !== false)
+            $query .= " AND wp_posts.post_title NOT LIKE '%<!--connatix%'";
+               
         //echo "<pre>".print_r($query,true)."</pre>";die();
         return $query;
     }
