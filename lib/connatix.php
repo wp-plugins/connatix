@@ -61,7 +61,7 @@ abstract class ConnatixPlugin
        {
             $options = get_option(ConnatixInpostPlugin::$OPTIONS_KEY);
             if($options->_type == 0 && $options->_token != null && strlen($options->_token) > 0)
-                echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.inpost.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+                echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.renderer.inpost.connatix.min.js' data-connatix-token='".$options->_token."'></script>";
        }
        
        $ad_units = $this->retrieve_ad_units();
@@ -85,7 +85,7 @@ abstract class ConnatixPlugin
                          $valid_page = true;
 
                      if($valid_page)
-                         echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.bootstrap.min.js' data-token='".$options->_token."' data-position='" . $options->_pos . "' data-path='".$options->_dom_path."'></script>";
+                         echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.renderer.infeed.min.js' data-connatix-token='".$options->_token."'></script>";
                 }
              }
        }

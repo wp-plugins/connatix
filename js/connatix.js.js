@@ -1,21 +1,5 @@
 var connatix = {
     bind: function(){
-        connatix.jQuery("input[name=token]").bind("blur",function(){
-            var token = connatix.jQuery(this).val();
-
-            if(token.length == 0)
-                return;
-
-            connatix.jQuery(".connatix-preloader").show();
-
-            connatix.jQuery.getJSON(CONNATIX_PARTNER_API + token + "&callback=?", function( data ) {
-                connatix.jQuery("input[name=dom_path]").val(data.path);
-                connatix.jQuery("input[name=dest]").val(data.destinationPage);
-            }).always(function() {
-                connatix.jQuery(".connatix-preloader").hide();
-              });;
-        });
-
         //bind of the go to page functionality
         connatix.jQuery("select[name=categoryID]").change(function(){
             var url = connatix.jQuery(this).find("option:selected").attr("data-link");
