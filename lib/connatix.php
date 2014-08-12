@@ -77,7 +77,7 @@ abstract class ConnatixPlugin
 
                 foreach($options->_categoryID as $pageID)
                 {
-                     if($pageID == 0 && is_home())
+                     if($pageID == 0 && (is_home() || is_front_page()))
                          $valid_page = true;
                      if($pageID == -1 && is_single())
                          $valid_page = true;

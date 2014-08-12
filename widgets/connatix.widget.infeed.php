@@ -11,34 +11,18 @@ class Connatix_Widget_Infeed extends WP_Widget {
 
 	public function widget( $args, $instance ) {
         global $wp_query; 
-        if(!is_object($wp_query) || !isset($wp_query->post) || !is_object($wp_query->post))
-            return;
         
-        $post_id = $wp_query->post->ID;
+        echo $args['before_widget'];
+
+        $token = "";
         
-        //$title = apply_filters( 'widget_title', $instance['title'] );
-        $options = get_option(ConnatixJSPlugin::$OPTIONS_KEY);
+        if(is_array($instance) && isset($instance["token"]) && strlen($instance["token"]) > 0) 
+            $token = $instance["token"];
         
-        if(is_array($options) && count($options) > 0)
-        {
-            $options = $options[0];
-            
-            echo $args['before_widget'];
+        if($token != "")
+            echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.renderer.infeed.min.js' mode='fast' data-connatix-token='".$token."'></script>";
 
-            $token = "";
-            if(is_array($instance) && isset($instance["token"]) && strlen($instance["token"]) > 0) 
-                $token = $instance["token"];
-            else
-            {
-                if($options != null && isset($options->_token))
-                    $token = $options->_token;
-            }
-
-            if($options != null && isset($options->_id) && $options->_id != $post_id)
-                echo "<script type='text/javascript' src='http://cdn.connatix.com/min/connatix.renderer.infeed.min.js' mode='fast' data-connatix-token='".$token."'></script>";
-
-            echo $args['after_widget'];
-        }
+        echo $args['after_widget'];
 	}
 
 	public function form( $instance ) {
