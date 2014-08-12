@@ -1,7 +1,7 @@
 <?php
 abstract class ConnatixPlugin 
 {
-   public static $PLUGIN_FILE = "connatix/connatix.php";
+   public static $PLUGIN_FILE = "connatix/ipg.php";
    
    protected $plugin_key = "";
    

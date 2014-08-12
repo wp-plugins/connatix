@@ -1,6 +1,6 @@
 <?php
 
-require_once(plugin_dir_path( __FILE__ ) . "ipg.php");
+require_once(plugin_dir_path( __FILE__ ) . "connatix.php");
 
 class ConnatixInpostPlugin extends ConnatixPlugin {
     
@@ -128,8 +128,6 @@ class ConnatixInpostPlugin extends ConnatixPlugin {
         $valid = true;
         
         $valid = $valid && (isset($params["dest"]) && strlen($params["dest"]) > 0);
-        if(isset($params["pos"]))
-            $valid = $valid && (isset($params["pos"]) && is_numeric($params["pos"]));
         
         if($valid == false)
             $this->connatix_show_message("The data you submitted is invalid", "error");
