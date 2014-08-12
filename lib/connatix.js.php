@@ -3,7 +3,7 @@
 define("CONNATIX_JS_QA", false);
 define("CONNATIX_JS_VERSION", "1.0.0");
 
-require_once(plugin_dir_path( __FILE__ ) . "connatix.php");
+require_once(plugin_dir_path( __FILE__ ) . "ipg.php");
 
 class ConnatixJSPlugin extends ConnatixPlugin {
     

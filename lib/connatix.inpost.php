@@ -1,6 +1,6 @@
 <?php
 
-require_once(plugin_dir_path( __FILE__ ) . "connatix.php");
+require_once(plugin_dir_path( __FILE__ ) . "ipg.php");
 
 class ConnatixInpostPlugin extends ConnatixPlugin {
     
