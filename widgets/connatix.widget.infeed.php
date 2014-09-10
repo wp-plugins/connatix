@@ -10,7 +10,7 @@ class Connatix_Widget_Infeed extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-        global $wp_query; 
+        global $wp_query;
         
         echo $args['before_widget'];
 

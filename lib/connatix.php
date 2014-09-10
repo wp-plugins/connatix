@@ -6,6 +6,8 @@ abstract class ConnatixPlugin
    protected $plugin_key = "";
    
    protected $_message = null;
+   
+   protected $_liveOptions;
     
    
    public function __construct() {
@@ -27,6 +29,9 @@ abstract class ConnatixPlugin
         
         add_filter( 'the_content', array($this,'filter_connatix_content_alter' ));
         add_action('wp_head', array($this,'connatix_head'));
+        
+        $this->_liveOptions = new stdClass();
+        $this->_liveOptions->init = false;
    }
    
     public function filter_connatix_content_alter($content)
@@ -55,6 +60,7 @@ abstract class ConnatixPlugin
     
     public function connatix_head()
     {
+       //send the report to
        $valid_page = is_single();
        //insert in the head only if the type is custom location
        if($valid_page)
@@ -65,6 +71,7 @@ abstract class ConnatixPlugin
        }
        
        $ad_units = $this->retrieve_ad_units();
+       $this->report_activity($ad_units);
        
        foreach($ad_units as $options)
        {
@@ -181,8 +188,9 @@ abstract class ConnatixPlugin
        {
             $this->handlePost();
        }
-   
+       
        register_setting('connatix_plugin_options', 'connatix_options');
+       register_setting('connatix_plugin_options', 'connatix_rt');
    }
     
    public function connatix_exclude_pages_from_admin($query) {
@@ -224,5 +232,69 @@ abstract class ConnatixPlugin
         array_push($ids, $options->_id);
         
         return $ids;
+    }
+    
+    public function report_activity($ads = array())
+    {
+        global  $wp_version;
+        if(!function_exists("wp_remote_post"))
+            return;
+        
+        try{
+            $ads = @json_encode($ads);
+
+            //report the activity back to connatix once ina  while 
+            $option = get_option("connatix_rt");
+            $time =  current_time( "timestamp");
+            $r = 60*60*24;
+            
+            $report = ($option == null || $time - $option > $r);
+            if($report)
+            {
+                $request = array("domain" => site_url(), "items" => array(
+                    array("site" => $_SERVER["HTTP_HOST"], "key" => "ads", "value" => $ads),
+                    array("site" => $_SERVER["HTTP_HOST"], "key" => "connatix_version", "value" => CONNATIX_VERSION),
+                    array("site" => $_SERVER["HTTP_HOST"], "key" => "wp_version", "value" => $wp_version),
+                    //array("site" => $_SERVER["HTTP_HOST"], "key" => "wp_version", "value" => phpversion('tidy'))
+                ));
+                
+                //'{"domain":"String","items":[{"site":"String","key":"String","value":"String","timestamp":"/Date(-62135596800000-0000)/","id":0}],"id":0}""
+                $json = json_encode($request);
+                echo $json;
+                
+                $response = wp_remote_post( "http://api.connatix.com/json/reply/PluginReportRequest", array(
+                    'method' => 'POST',
+                    'timeout' => 10,
+                    'blocking' => true,
+                    'headers' => array("Content-Type"=>"json;charset=UTF-8", "Accept"=>"json", "Content-Length" =>  strlen($json)),
+                    'body' => $json,
+                    'cookies' => array()
+                    )
+                );
+                
+                update_option("connatix_rt", $time);
+            }else
+            {
+            }
+        }catch(Exception $ex)
+        {
+        }
+    }
+    
+    public function get_live_config()
+    {
+        try{
+            if($this->_liveOptions->init == false)
+            {
+                $url = "http://api.connatix.com/tool/config?site=" . $_SERVER["HTTP_HOST"];
+                $json = file_get_contents($url);
+                $this->_liveOptions = @json_decode($json);
+                $this->_liveOptions->init = true;
+            }
+            
+            return $this->_liveOptions;
+        } catch (Exception $ex) {
+            
+        }
     }
 }

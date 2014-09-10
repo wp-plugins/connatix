@@ -5,7 +5,7 @@ Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
 Requires at least: 3.8.1
 Tested up to: 3.9.0
-Stable tag: 3.1.2
+Stable tag: 3.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,3 +64,7 @@ v3.1.1
     - fix for the widget which was sometimes not displayed
 v3.1.2
     - fix for multiple ads shown on category pages
+v3.1.3
+    - more bug fixes
+v3.1.4
+    - remove the "in-post" product for now.
