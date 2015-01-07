@@ -5,7 +5,7 @@ Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
 Requires at least: 3.8.1
 Tested up to: 4.1
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,6 +14,9 @@ This plugin embeds your connatix ad for you. Simple managing with graphic interf
 == Description ==
 
 This plugin embeds your connatix ad for you. Simple managing with graphic interface.
+
+
+
 
 == Installation ==
 
@@ -60,4 +63,4 @@ v3.1.5
     - fixed some issues with the css breaking the Dasboard UI.
     - UI improvements.
 v3.1.6
-    - fixed issues with category pages.
+    - priority set to 0.
