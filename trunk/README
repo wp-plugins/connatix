@@ -58,5 +58,6 @@ v3.1.4
     - remove the "in-post" product for now.
 v3.1.5
     - fixed some issues with the css breaking the Dasboard UI.
-    - fixed issues with category pages.
     - UI improvements.
+v3.1.6
+    - fixed issues with category pages.
