@@ -103,7 +103,7 @@
                                 $selected = ($ad_unit->_skip_adunit) ? "checked='checked'" : "";
                             ?>
                             <td colspan="3" style="line-height:8px">
-                                <span class="description"><input data-ignore="true" title="text here" type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="text here">* Widget Only</b></span>
+                                <span class="description"><input data-ignore="true" title="Check this only if you use the connatix widget" type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="Check this only if you use the connatix widget">* Widget Only</b></span>
                             </td>
                         </tr>
                     </table>
@@ -123,7 +123,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"><b><span style="color:green;">Current permalink: &nbsp;</b><?php echo get_permalink($ad_unit->_id); ?></span></td>
+                            <td colspan="3"><span style="color:green;"><b>Current permalink: &nbsp;</b><?php echo get_site_url()."/".$ad_unit->_dest ?></span></td>
                         </tr>
                     </table>
                 </div>
