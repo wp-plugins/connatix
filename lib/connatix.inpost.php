@@ -120,7 +120,7 @@ class ConnatixInpostPlugin extends ConnatixPlugin {
         
         update_option(ConnatixInpostPlugin::$OPTIONS_KEY, $options);
         
-        $this->connatix_show_message("Connatix <b>Inpost</b> settings successful saved !!","updated");
+        $this->connatix_show_message("Connatix <b>Inpost</b> settings successfully saved !","updated");
     }
     
     public function validate_post($params)
