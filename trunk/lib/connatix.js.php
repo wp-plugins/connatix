@@ -9,12 +9,11 @@ class ConnatixJSPlugin extends ConnatixPlugin {
     
     public static $OPTIONS_KEY = "connatix_js_options100Release";
     public static $POST_ACTION = "connatix_js_handle_post";
-    public static $PAGE_NAME = "connatix100Release";
-    
+    public static $PAGE_NAME = "ConnatixVer_default";
     
     public function __construct() {
         parent::__construct();
-        
+        ConnatixJSPlugin::$PAGE_NAME = "Connatix_" . CONNATIX_VERSION . "_";
         // Creates the AD page
         add_action(ConnatixJSPlugin::$POST_ACTION, array($this, 'connatix_create_ad_page'));
         
@@ -103,6 +102,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
         $options = $this->get_options($_POST);
         
         $ads = $this->retrieve_ad_units();
+
         if(isset($_POST["delete"]))
         {
             foreach($ads as $key => $ad)
@@ -138,16 +138,39 @@ class ConnatixJSPlugin extends ConnatixPlugin {
         
         update_option(ConnatixJSPlugin::$OPTIONS_KEY, $ads);
         
-        $this->connatix_show_message("Connatix <b>InFeed</b> settings successful saved !!","updated");
+        $this->connatix_show_message("Connatix <b>InFeed</b> settings successfully saved !","updated");
     }
     
     private function update_post($dest)
     {
         $page_title = "<!--".ConnatixJSPlugin::$PAGE_NAME . md5($dest) . "-->";
-        $body =  "<script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.destination.min.js'></script>";
+        $body =  "<!--".ConnatixJSPlugin::$PAGE_NAME."destpage--><script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.destination.min.js'></script>";
+            $page = get_page_by_title($page_title);
+                //erase the old destination pages from previous releases
+                $old_dest_pages[0] = get_page_by_title( "<!--connatix100Release-->" );
+                $old_dest_pages[1] = get_page_by_title( "<!--connatix100Release" . md5($dest) . "-->" );
+                $ver_file = file_get_contents("http://plugins.svn.wordpress.org/connatix/tags/");
+                
+                if ( preg_match_all ( '/<a href="\d.+?>(.+?)\/<\/a>/', $ver_file, $matches ) )
+                {               
+                    foreach ( $matches[1] as $key => $found_ver )
+                    {   
+                        if("v".$found_ver != CONNATIX_VERSION)
+                        {
+                            $old_dest_pages[$key+2] = get_page_by_title( "<!--Connatix_v".$found_ver."_" . md5($dest)."-->" );
+                        }
+                    }
+                }
 
+                foreach ( $old_dest_pages as $old_page )
+                {
+                    if ($old_page != NULL)
+                    {                      
+                        wp_delete_post( $old_page -> ID, true );
+                    }
+                }        
+                
                 //create the destination page if it does not exist
-                $page = get_page_by_title($page_title);
                 if (!$page) {
                     $_p = array();
                     $_p['post_title'] = $page_title;
