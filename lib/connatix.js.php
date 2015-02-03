@@ -121,7 +121,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
             {
                 if($ad->_id == $options->_id)
                 {
-                    $this->update_post($ad->_dest);
+                    $this->update_post($ad->_dest, $ad->_dest_code);
                     $ad = $options;
                     $found = true;
                 }
@@ -130,7 +130,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
             if($found == false)
             {
                 $options->_id = uniqid();
-                $this->update_post($options->_dest);
+                $this->update_post($options->_dest, $options->_dest_code);
                 array_push($ads, $options);
                 $_GET["ad_id"] = $options->_id; 
             }
@@ -141,10 +141,10 @@ class ConnatixJSPlugin extends ConnatixPlugin {
         $this->connatix_show_message("Connatix <b>InFeed</b> settings successfully saved !","updated");
     }
     
-    private function update_post($dest)
+    private function update_post($dest,$destcode)
     {
         $page_title = "<!--".ConnatixJSPlugin::$PAGE_NAME . md5($dest) . "-->";
-        $body =  "<!--".ConnatixJSPlugin::$PAGE_NAME."destpage--><script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.destination.min.js'></script>";
+        $body =  "<!--".ConnatixJSPlugin::$PAGE_NAME."destpage-->".$destcode."<script type='text/javascript' src='//cdn.connatix.com/min/connatix.renderer.destination.min.js'></script>";
             $page = get_page_by_title($page_title);
                 //erase the old destination pages from previous releases
                 $old_dest_pages[0] = get_page_by_title( "<!--connatix100Release-->" );
@@ -169,7 +169,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
                         wp_delete_post( $old_page -> ID, true );
                     }
                 }        
-                
+      
                 //create the destination page if it does not exist
                 if (!$page) {
                     $_p = array();
@@ -228,6 +228,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
             $options->_skip_adunit = isset($params["skip_adunit"]) && $params["skip_adunit"] == 1 ? 1 : 0; 
         
         $options->_id = isset($params["id"]) ? $params["id"] : "";
+        $options->_dest_code = $params["destcode"];
         
         return $options;
     }    
@@ -250,4 +251,5 @@ class ConnatixJSOPtions
     public $_categoryID = array(0); //0 means homepage for now
     public $_skip_adunit = 0;
     public $_dest_id = 0;
+    public $_dest_code = "";
 }
