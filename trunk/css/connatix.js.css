@@ -105,6 +105,7 @@
 
 .connatix-wrap textarea {
     width: 100%;
+    resize: vertical;
     border-color: #ddd;
     background-color: #fff;
     color: #333;

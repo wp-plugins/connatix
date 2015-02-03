@@ -47,16 +47,11 @@
                     <table class="form-table">
                         <tr>
                             <td class="connatix_head"><b>AD Unit Name:</b></td>
-                            <td><input title="The ad unit name" type="text" maxlength="100" name="name" value="<?php echo $ad_unit->_name; ?>" /></td>
+                            <td><input title="The ad unit name." type="text" maxlength="100" name="name" value="<?php echo $ad_unit->_name; ?>" /></td>
                         </tr>
                         <tr>
                             <td class="connatix_head"><b>PUBLIC TOKEN:</b></td>
-                            <td><input title="The public token provided" type="text" maxlength="100" name="token" value="<?php echo $ad_unit->_token; ?>" /></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="description">* Insert the public token provided, here.</span>
-                            </td>
+                            <td><input title="The public token provided." type="text" maxlength="100" name="token" value="<?php echo $ad_unit->_token; ?>" /></td>
                         </tr>
                     </table>
                 </div>
@@ -69,7 +64,7 @@
                         <tr>
                             <td class="connatix_head"><b>Page</b></td>
                             <td>
-                                <select title="The category page you want to install the Ad" name="categoryID[]" class="connatix-page-selector" multiple="multiple" size="6">
+                                <select title="The category page you want to install the Ad." name="categoryID[]" class="connatix-page-selector" multiple="multiple" size="6">
                                     <?php
                                         
                                         $cat_url = get_home_url();
@@ -103,7 +98,7 @@
                                 $selected = ($ad_unit->_skip_adunit) ? "checked='checked'" : "";
                             ?>
                             <td colspan="3" style="line-height:8px">
-                                <span class="description"><input data-ignore="true" title="Check this only if you use the connatix widget" type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="Check this only if you use the connatix widget">* Widget Only</b></span>
+                                <span class="description"><input data-ignore="true" title="Check this only if you use the Connatix Widget." type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="Check this only if you use the connatix widget">* Widget Only</b></span>
                             </td>
                         </tr>
                     </table>
@@ -119,12 +114,19 @@
                             <td class="connatix_in"><?php echo get_site_url() . "/"; ?>
                             </td>
                             <td>
-                                <input type="text" name="dest" placeholder="promoted" title="Custom dest page permalink" maxlength="20" value="<?php echo $ad_unit->_dest ?>" />
+                                <input type="text" name="dest" placeholder="promoted" title="Custom destination page permalink." maxlength="20" value="<?php echo $ad_unit->_dest ?>" />
                             </td>
+                        </tr>
+                        <tr>
+                             <td class="connatix_head"><b>Custom CODE:</b></td>
+                             <td colspan="2"><textarea rows="5" title="This code will be added in the HTML of the destination page." name="destcode"><?php echo $ad_unit->_dest_code; ?></textarea>
+                             <span class="description">*Note: The custom code will affect the chosen page. Even though you save the code from a different Ad Unit, if that Ad Unit is targeting the "/promoted" page, the destination page custom code will be the last one saved, regardless of the Ad Unit. </span>
+                             </td>
                         </tr>
                         <tr>
                             <td colspan="3"><span style="color:green;"><b>Current permalink: &nbsp;</b><?php echo get_site_url()."/".$ad_unit->_dest ?></span></td>
                         </tr>
+                        
                     </table>
                 </div>
             </div>
