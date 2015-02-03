@@ -210,6 +210,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
     
     private function get_options($params)
     {
+        
         $options = new ConnatixJSOPtions();
         
         $options->_name = $params["name"];
@@ -227,8 +228,9 @@ class ConnatixJSPlugin extends ConnatixPlugin {
         if(isset($params["skip_adunit"]))
             $options->_skip_adunit = isset($params["skip_adunit"]) && $params["skip_adunit"] == 1 ? 1 : 0; 
         
+   
         $options->_id = isset($params["id"]) ? $params["id"] : "";
-        $options->_dest_code = $params["destcode"];
+        $options->_dest_code = stripslashes($params["destcode"]);
         
         return $options;
     }    
