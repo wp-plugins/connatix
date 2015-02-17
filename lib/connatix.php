@@ -71,7 +71,7 @@ abstract class ConnatixPlugin
        }
        
        $ad_units = $this->retrieve_ad_units();
-       $this->report_activity($ad_units);
+       //$this->report_activity($ad_units);
      
        foreach($ad_units as $options)
        {
@@ -240,7 +240,7 @@ abstract class ConnatixPlugin
         
         return $ids;
     }
-    
+    /*
     public function report_activity($ads = array())
     {
         global  $wp_version;
@@ -250,7 +250,7 @@ abstract class ConnatixPlugin
         try{
             $ads = @json_encode($ads);
 
-            //report the activity back to connatix once ina  while 
+            //report the activity back to connatix once in a  while 
             $option = get_option("connatix_rt");
             $time =  current_time( "timestamp");
             $r = 60*60*24;
@@ -287,7 +287,7 @@ abstract class ConnatixPlugin
         {
         }
     }
-    
+    */
     public function get_live_config()
     {
         try{
@@ -304,4 +304,5 @@ abstract class ConnatixPlugin
             
         }
     }
+     
 }

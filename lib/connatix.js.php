@@ -231,7 +231,7 @@ class ConnatixJSPlugin extends ConnatixPlugin {
    
         $options->_id = isset($params["id"]) ? $params["id"] : "";
         $options->_dest_code = stripslashes($params["destcode"]);
-        
+       
         return $options;
     }    
     

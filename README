@@ -5,7 +5,7 @@ Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
 Requires at least: 3.8.1
 Tested up to: 4.1
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,3 +72,5 @@ v3.1.8
     - fixed issue with destination page.
 v3.2.0
     - added custom code insertion functionality into destination page.
+v3.2.1
+    - fixed issue that caused ad unit information to appear on the site.
