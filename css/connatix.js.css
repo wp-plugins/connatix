@@ -1,4 +1,4 @@
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 790px) {
     .connatix-toolbox {
         width: calc( 100% - 10px ) !important;
         float: left !important;
@@ -7,10 +7,6 @@
     .connatix-wrap {
         width: calc( 100% - 10px ) !important;
         float: left !important;
-    }
-
-    .connatix-wrap .button-primary {
-        margin: 0 20% !important;
     }
 
     .connatix-wrap .connatix-ad-delete {
@@ -36,6 +32,55 @@
     .connatix-wrap #postlist {
         width: calc( 100% - 8px ) !important;
     }
+
+    .connatix-wrap #heads-toolbox{  
+        min-height: initial;
+    }
+
+    .connatix-wrap .connatix_head{
+        margin: 0;
+        padding: 0;
+    }
+
+    .connatix-wrap #heads-up input[type="text"]{
+        margin-bottom: 20px;
+    }
+
+    .connatix-wrap #heads-up .description input[type="checkbox"]{
+        width:18px;
+        height:18px;
+    }
+
+    .connatix-wrap #heads-up .description b{
+        font-size: 13px;
+    }
+
+    .connatix-wrap .form-table select{
+        font-size: 14px !important;
+    }
+
+    .connatix-wrap .connatix_in{
+        margin: 10px 0 -5px 3px;
+        padding: 0;
+        font-size: 13px;
+    }
+
+    .connatix-wrap .connatix_head{
+        padding: 0 !important;
+    }
+
+    .connatix-wrap .description{
+        font-size: 13px !important;
+    }
+
+    .connatix-wrap #connatix-support{
+        display: none;
+    }
+
+    .connatix-wrap .button-primary {
+        width: 130px;
+    }
+
 }
 
 .connatix-wrap #heads-up select {
@@ -45,7 +90,6 @@
 
 .connatix-wrap .button-primary {
     width: 160px;
-    margin-top: 22px;
 }
 
 .connatix-wrap .connatix-break {
@@ -283,4 +327,17 @@
     background-image: url('http://cdn.connatix.com/Site/Images/sprite.png');
     background-repeat: no-repeat;
     background-position: 0px -338px;
+}
+
+.connatix-wrap #connatix-custom-code {
+    display: block;
+    margin: 0;
+    margin-bottom: 10px;
+    background-color: #5f9ea0;
+    border-color: #558E90;
+}
+
+.connatix-wrap #connatix-support{
+    margin-top: 50px;
+    color: #aaa;
 }

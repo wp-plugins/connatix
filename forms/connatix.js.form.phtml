@@ -98,7 +98,7 @@
                                 $selected = ($ad_unit->_skip_adunit) ? "checked='checked'" : "";
                             ?>
                             <td colspan="3" style="line-height:8px">
-                                <span class="description"><input data-ignore="true" title="Check this only if you use the Connatix Widget." type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="Check this only if you use the connatix widget">* Widget Only</b></span>
+                                <span class="description"><input data-ignore="true" title="Check this only if you use the Connatix Widget." type="checkbox" value="1" name="skip_adunit" <?php echo $selected ?> /> <b title="Check this only if you use the Connatix Widget.">* Widget Only</b></span>
                             </td>
                         </tr>
                     </table>
@@ -111,16 +111,17 @@
                     <table class="form-table">
                         <tr>
                             <td class="connatix_head"><b>PERMANENT LINK:</b></td>
-                            <td class="connatix_in"><?php echo get_site_url() . "/"; ?>
-                            </td>
+                            <td class="connatix_in"><?php echo get_site_url() . "/"; ?>                            </td>
                             <td>
                                 <input type="text" name="dest" placeholder="promoted" title="Custom destination page permalink." maxlength="20" value="<?php echo $ad_unit->_dest ?>" />
                             </td>
                         </tr>
                         <tr>
-                             <td class="connatix_head"><b>Custom CODE:</b></td>
-                             <td colspan="2"><textarea rows="5" title="This code will be added in the HTML of the destination page." name="destcode"><?php echo $ad_unit->_dest_code; ?></textarea>
-                             <span class="description">*Note: The custom code will affect the chosen page. Even though you save the code from a different Ad Unit, if that Ad Unit is targeting the "/promoted" page, the destination page custom code will be the last one saved, regardless of the Ad Unit. </span>
+                             <td class="connatix_head" style="padding-bottom: 56px;"><b>Custom CODE:</b></td>
+                             <td colspan="2">
+                                 <input id="connatix-custom-code" type="button" class="button-primary" value="Open Area" />
+                                 <textarea id="connatix-textarea-code" rows="10" title="This code will be added in the HTML of the destination page." name="destcode"><?php echo $ad_unit->_dest_code; ?></textarea>
+                             <span class="description" style="color:#777">*Note: The custom code will affect the chosen page. Even though you save the code from a different Ad Unit, if that Ad Unit is targeting the "/promoted" page, the destination page custom code will be the last one saved, regardless of the Ad Unit. </span>
                              </td>
                         </tr>
                         <tr>
@@ -133,11 +134,12 @@
         </div>
         <div class="clear"></div>
         <!--Submit form button-->
-        <input type="submit" name="delete" class="button-primary connatix-ad-delete" value="Delete ad" />
+        <input type="submit" name="delete" class="button-primary connatix-ad-delete" value="Delete Ad" />
         <input type="submit" class="button-primary" value="Save Changes" />
 
     </form>
     <!--Footer-->
+    <span id="connatix-support" class="alignright">For any questions contact us at: support@connatix.com</span>
     <hr class="connatix-break"/>
 
     <div class="logo"></div>
