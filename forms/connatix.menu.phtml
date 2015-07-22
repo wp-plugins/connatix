@@ -1,22 +1,20 @@
-<?php 
+<?php
 global $connatix_product;
 
-$url = get_site_url() . "/wp-admin/options-general.php?page=".ConnatixPlugin::$PLUGIN_FILE;
+$url = get_site_url() . "/wp-admin/options-general.php?page=" . ConnatixPlugin::$PLUGIN_FILE;
 
-$config = $this->get_live_config();
+$hideInPost = true;
 ?>
-    <div><h3>Connatix Plugin <?php echo CONNATIX_VERSION ?></h3></div>
-    <div class='connatix-menu'>
-        <a href='<?php echo $url . "&connatix_product=infeed"?>' <?php echo ($connatix_product == "infeed") ? "class='active'" : "" ?>>InFeed</a>
-        <?php
-            if(!$config->hideInPost)
-            {
+<div><h3>Connatix Plugin <?php echo CONNATIX_VERSION ?></h3></div>
+<div class='connatix-menu'>
+    <a href='<?php echo $url . "&connatix_product=infeed" ?>' <?php echo ($connatix_product == "infeed") ? "class='active'" : "" ?>>InFeed</a>
+    <?php
+    if (!$hideInPost) {
         ?>
-        <a href='<?php echo $url . "&connatix_product=inpost"?>' <?php echo ($connatix_product == "inpost") ? "class='active'" : "" ?>>InPost</a>
+        <a href='<?php echo $url . "&connatix_product=inpost" ?>' <?php echo ($connatix_product == "inpost") ? "class='active'" : "" ?>>InPost</a>
         <?php
-            }
-        ?>
-    </div>
-    <div class='connatix-clear'></div>
-    
-    
+    }
+    ?>
+</div>
+<div class='connatix-clear'></div>
+

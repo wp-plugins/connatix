@@ -5,7 +5,7 @@ Donate link: -
 Tags: connatix ad plugin, ad plugin, ad management, ad management plugin, manage your ads
 Requires at least: 3.8.1
 Tested up to: 4.2.2
-Stable tag: 3.3.0
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,3 +79,7 @@ v3.3.0
     - removed live config.
     - made the scripts async.
     - minor UI and code changes.
+v3.4.0
+    - added https support.
+    - modified the custom code insertion into the destination, to be at the end.
+    - removed "InPost" product.
